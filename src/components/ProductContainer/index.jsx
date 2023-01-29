@@ -45,9 +45,13 @@ export default function ProductContainer() {
 		setProducts(newArr);
 	};
 
-	const totalPrice = products.reduce(
-			(prev, product) => (prev + (product.price > 0)) ? product.price : 0 ,0)
-		; 
+	const totalPrice = products.reduce((prev, product) => {
+		return prev + product.price * product.count;
+	}, 0);
+
+	const totalCount = products.reduce((prev, product) => {
+		return prev + product.count;
+	}, 0);
 
 	const changeCount = (changeId, value) => {
 		const target = products.find(({ id }) => id === changeId);
@@ -71,6 +75,7 @@ export default function ProductContainer() {
 				/>
 			))}
 			totalPrice={totalPrice}
+			totalCount={totalCount}
 		</div>
 	);
 }
